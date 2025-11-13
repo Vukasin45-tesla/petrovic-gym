@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Petrović Gym — Tvoj put do forme</title>
+  <meta name="description" content="Petrović Gym u Bloku 45 (Jurija Gagarina 273). 24/7 teretana, personalni i grupni treninzi, sauna i proteinski bar. Prvi trening besplatan!" />
+  <link rel="stylesheet" type="text/css" href="program.css">
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Petrović Gym" />
+  <meta property="og:description" content="Moderna teretana u Novom Beogradu. Učlani se danas i iskoristi promotivne pakete." />
+  <meta property="og:url" content="https://www.petrovicgym.rs/" />
+  <meta property="og:image" content="https://placehold.co/1200x630/png?text=Petrovic+Gym" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Petrović Gym" />
+  <meta name="twitter:description" content="Moderna teretana u Novom Beogradu. Učlani se danas i iskoristi promotivne pakete." />
+  <meta name="twitter:image" content="https://placehold.co/1200x630/png?text=Petrovic+Gym" />
+  <link rel="canonical" href="https://www.petrovicgym.rs/" />
+  <link rel="alternate" hrefLang="sr" href="https://www.petrovicgym.rs/" />
+  <link rel="alternate" hrefLang="en" href="https://www.petrovicgym.rs/en" />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#0f172a" />
+
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <img src="images/logo.png" class="logo">
+      </div>
+      <nav class="menu" id="menu">
+        <a href="#services">Usluge</a>
+        <a href="#trainers">Treneri</a>
+        <a href="#schedule">Termini</a>
+        <a href="#pricing">Cenovnik</a>
+        <a href="#contact" class="btn">Kontakt</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Otvori meni">☰</button>
+    </div>
+  </header>
+
+        <div id="checkout" class="card" style="margin-top:1rem">
+          <h3 style="margin-top:0">Kupovina programa</h3>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="planSelect">Plan</label>
+              <select id="planSelect">
+                <option value="Basic" data-price="3500">Basic — 3.500 RSD / mes.</option>
+                <option value="Plus"  data-price="4900">Plus — 4.900 RSD / mes.</option>
+                <option value="Pro"   data-price="7900">Pro — 7.900 RSD / mes.</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="periodSelect">Period</label>
+              <select id="periodSelect">
+                <option value="monthly"   data-mult="1">Mesečno</option>
+                <option value="quarterly" data-mult="3">Kvartalno (−10%)</option>
+                <option value="yearly"    data-mult="12">Godišnje (−20%)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label>Dodaci</label>
+              <label><input type="checkbox" class="addon" data-name="Sauna" data-price="800"> Sauna (+800 RSD / mes.)</label>
+              <label><input type="checkbox" class="addon" data-name="Peškir" data-price="300"> Peškir servis (+300 RSD / mes.)</label>
+              <label><input type="checkbox" class="addon" data-name="1x PT" data-price="2500"> 1x Personalni trening (+2.500 RSD)</label>
+            </div>
+            <div class="field">
+              <label for="promo">Promo kod</label>
+              <div class="form-row" style="grid-template-columns:2fr 1fr">
+                <input id="promo" type="text" placeholder="npr. WELCOME10" />
+                <button id="applyPromo" type="button" class="btn">Primeni</button>
+              </div>
+              <p style="color:var(--muted)">Primeri: <code>WELCOME10</code> (−10%), <code>STUDENT15</code> (−15%)</p>
+            </div>
+          </div>
+
+          <hr style="border-color:#374151; margin:1rem 0" />
+
+          <div class="form-row">
+            <div class="field">
+              <label for="fullName">Ime i prezime</label>
+              <input id="fullName" type="text" placeholder="npr. Ana Petrović" required />
+            </div>
+            <div class="field">
+              <label for="emailBuy">Email</label>
+              <input id="emailBuy" type="email" placeholder="npr. ana@mail.com" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="phoneBuy">Telefon</label>
+              <input id="phoneBuy" type="tel" placeholder="060 123 4567" required />
+            </div>
+            <div class="field">
+              <label for="startDate">Datum početka</label>
+              <input id="startDate" type="date" />
+            </div>
+          </div>
+          <div class="card" style="background:#0b1220;border:1px dashed #374151;margin-top:1rem">
+            <h4 style="margin-top:0">Sažetak</h4>
+            <div id="summaryLines" style="display:grid;gap:.35rem;color:#cfe2f5"></div>
+            <p style="margin:.6rem 0 0"><strong>Ukupno: <span id="total-amount">0</span> RSD</strong></p>
+            <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem">
+              <a id="payCard" class="btn" href="#" target="_blank" rel="noopener">Plati karticom</a>
+              <button id="payDesk" class="btn" type="button">Uplata na recepciji</button>
+            </div>
+            <p style="color:var(--muted);margin-top:.6rem">„Plati karticom“ vodi na tvoj Stripe/Monri link (zameni URL u skripti). „Uplata na recepciji“ rezerviše paket 48h.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;gap:1rem;align-items:center;flex-wrap:wrap">
+      <div style="display:flex;gap:.6rem;align-items:center">
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+  // Hamburger meni (mobilni)
+  const hamburger = document.getElementById('hamburger');
+  const menu = document.getElementById('menu');
+  if (hamburger && menu) {
+    hamburger.addEventListener('click', () => {
+      menu.classList.toggle('open');
+    });
+  }
+
+  // Elementi iz forme
+  const planSelect   = document.getElementById('planSelect');
+  const periodSelect = document.getElementById('periodSelect');
+  const addonInputs  = document.querySelectorAll('.addon');
+  const promoInput   = document.getElementById('promo');
+  const applyPromo   = document.getElementById('applyPromo');
+  const summaryLines = document.getElementById('summaryLines');
+  const totalEl      = document.getElementById('total-amount');
+  const payCardLink  = document.getElementById('payCard');
+
+  if (!planSelect || !periodSelect || !summaryLines || !totalEl) {
+    return; // nešto fali u DOM-u, prekid
+  }
+
+  // Promo kod (procenat)
+  let promoPct = 0;
+
+  function getPlan() {
+    const opt = planSelect.options[planSelect.selectedIndex];
+    return {
+      name: opt.value,
+      price: Number(opt.dataset.price || 0) // mesečna cena
+    };
+  }
+
+  function getPeriod() {
+    const opt = periodSelect.options[periodSelect.selectedIndex];
+    const mult = Number(opt.dataset.mult || 1); // broj meseci
+    let disc = 0;
+    if (opt.value === 'quarterly') disc = 0.10; // -10%
+    if (opt.value === 'yearly')    disc = 0.20; // -20%
+    return {
+      label: opt.textContent,
+      mult,
+      disc
+    };
+  }
+
+  function getAddons() {
+    const arr = [];
+    addonInputs.forEach(input => {
+      if (input.checked) {
+        arr.push({
+          name: input.dataset.name,
+          price: Number(input.dataset.price || 0)
+        });
+      }
+    });
+    return arr;
+  }
+
+  function update() {
+    const plan = getPlan();
+    const period = getPeriod();
+    const addons = getAddons();
+
+    // Osnovica: plan * broj meseci
+    const base = plan.price * period.mult;
+
+    // Popust na period (kvartalno/godišnje)
+    const periodDiscAmount = base * period.disc;
+
+    // Saberi dodatke
+    const addonsSum = addons.reduce((sum, a) => sum + a.price, 0);
+
+    // Među-zbir
+    const subtotal = base - periodDiscAmount + addonsSum;
+
+    // Promo popust
+    const promoAmount = subtotal * promoPct;
+
+    // Konačna cena
+    const total = Math.round(subtotal - promoAmount);
+
+    // Ispis sažetka
+    summaryLines.innerHTML = '';
+
+    const lines = [];
+
+    lines.push(
+      `${plan.name} (${period.label}) — ${base.toLocaleString('sr-RS')} RSD`
+    );
+
+    if (period.disc) {
+      lines.push(
+        `Popust na period (${Math.round(period.disc * 100)}%) — −${Math.round(periodDiscAmount).toLocaleString('sr-RS')} RSD`
+      );
+    }
+
+    if (addons.length) {
+      lines.push(
+        `Dodaci: ${addons.map(a => a.name).join(', ')} — +${addonsSum.toLocaleString('sr-RS')} RSD`
+      );
+    }
+
+    if (promoPct) {
+      lines.push(
+        `Promo (${Math.round(promoPct * 100)}%) — −${Math.round(promoAmount).toLocaleString('sr-RS')} RSD`
+      );
+    }
+
+    lines.forEach(text => {
+      const div = document.createElement('div');
+      div.textContent = text;
+      summaryLines.appendChild(div);
+    });
+
+    // Upis ukupne cene
+    totalEl.textContent = total.toLocaleString('sr-RS');
+
+    // Link za plaćanje (ovde kasnije staviš pravi URL)
+    if (payCardLink) {
+      const addonsParam = encodeURIComponent(addons.map(a => a.name).join(','));
+      const payLink = `https://example-payments.com/checkout?plan=${encodeURIComponent(plan.name)}&months=${period.mult}&addons=${addonsParam}&total=${total}`;
+      payCardLink.setAttribute('href', payLink);
+    }
+  }
+
+  // Primena promo koda
+  if (applyPromo && promoInput) {
+    applyPromo.addEventListener('click', () => {
+      const code = (promoInput.value || '').trim().toUpperCase();
+      if (code === 'WELCOME10') {
+        promoPct = 0.10;
+      } else if (code === 'STUDENT15') {
+        promoPct = 0.15;
+      } else {
+        promoPct = 0;
+      }
+      update();
+    });
+  }
+
+  // Osluškivanje promena
+  planSelect.addEventListener('change', update);
+  periodSelect.addEventListener('change', update);
+  addonInputs.forEach(input => input.addEventListener('change', update));
+
+  // Prvi proračun
+  update();
+});
+  </script>
+</body>
+</html>
