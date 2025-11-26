@@ -52,7 +52,7 @@
           </div>
         </div>
         <div>
-          <div class="grid-3" style="grid-template-columns:repeat(3,1fr)">
+          <div class="main-media">
             <div class="slider-container">
               
               <div class="slide active">
@@ -207,7 +207,25 @@
   </main>
 
   <script>
-    document.getElementById('hamburger')?.addEventListener('click',()=>document.getElementById('menu').classList.toggle('open'));
+   const menu = document.getElementById('menu');
+  const hamburger = document.getElementById('hamburger');
+
+  if (menu && hamburger) {
+    hamburger.addEventListener('click', () => {
+      menu.classList.toggle('open');
+    });
+
+    // zatvaranje menija kad klikneš na link
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('open');
+      });
+    });
+  }
+
+  // Footer godina
+  document.getElementById('year').textContent = new Date().getFullYear();
+
     // Footer godina
     document.getElementById('year').textContent = new Date().getFullYear();
 
