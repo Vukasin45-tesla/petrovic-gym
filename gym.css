@@ -2412,7 +2412,7 @@ header .menu a {
   width: 160px;
   height: auto;
   max-width: 100%;
-  transform: translateX(-75px);
+  transform: translateX(-175px);
 }
 
 .hero-grid {
@@ -2820,6 +2820,69 @@ header .menu a {
   align-items: center !important;
   width: 100%;
   min-width: 0;
+
+}
+
+/* =====================================
+   FINAL FIXES (trainer cards + pricing bullets)
+   ===================================== */
+#trainers .card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#trainers .card .avatar {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 14px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--line-weak);
+}
+
+#trainers .card .radnici {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+#pricing .price ul {
+  list-style-position: inside;
+  text-align: left;
+  width: fit-content;
+  margin: 0.9rem auto 0;
+  padding: 0;
+}
+
+#pricing .price li {
+  margin-bottom: 0.2rem;
+}
+
+@media (max-width: 1023px) {
+  #trainers .card .avatar {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+@media (max-width: 767px) {
+  #trainers .trainers {
+    gap: 1rem;
+  }
+
+  #trainers .card .avatar {
+    aspect-ratio: 5 / 6;
+  }
+
+  #pricing .price ul {
+    margin-inline: 0;
+    width: 100%;
+  }
 }
 
 .modern-slider {
