@@ -2961,3 +2961,27 @@ header .menu a {
     justify-content: center;
   }
 }
+/* =========================================
+   Index logo: stalna (fiksna) pozicija
+   ========================================= */
+.brand {
+  min-width: 170px;
+}
+
+.logo {
+  position: fixed !important;
+  top: 10px;
+  left: 18px;
+  width: 160px;
+  height: 95px;
+  z-index: 120;
+}
+
+@media (max-width: 767px) {
+  .logo {
+    top: 8px;
+    left: 10px;
+    width: 116px;
+    height: auto;
+  }
+}

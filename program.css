@@ -193,9 +193,10 @@ header {
 }
 
 .card {
-  position: sticky;
-  left: 300px;
-  width: 1200px;
+  position: relative;
+  left: auto;
+  width: 100%;
+  max-width: 100%;
   background: linear-gradient(180deg, rgba(20,24,33,.65), rgba(20,24,33,.35));
   border: 1px solid var(--line-weak);
   border-radius: var(--radius-lg);
@@ -500,7 +501,7 @@ header .menu .btn::after {
 /* hover na Kontakt dugme – jači glow, bela senka */
 
 header .menu .btn:hover {
-  background: linear-gradient(160deg,  rgba(15, 17, 21, .7), rgba(15, 17, 21, .7);
+  background: linear-gradient(160deg, rgba(15, 17, 21, .7), rgba(15, 17, 21, .7));
   border-color: rgba(255, 255, 255, 0.18);
   box-shadow:
   0 0 12px rgba(34, 211, 238, 0.25),
@@ -597,28 +598,38 @@ header .menu .btn:active {
   }
 
   header .menu {
-    display: none !important;
+    display: flex !important;
     position: fixed;
-    top: 74px;
-    left: 12px;
-    right: 12px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(82vw, 320px);
     flex-direction: column;
     align-items: stretch;
     gap: 0.5rem;
-    padding: 0.95rem;
+    padding: 5.4rem 1rem 1rem;
     background: rgba(15, 17, 21, 0.98);
-    border: 1px solid var(--line);
-    border-radius: 16px;
+    border-left: 1px solid var(--line);
+    border-radius: 0;
     box-shadow: 0 18px 36px rgba(0, 0, 0, 0.9);
     z-index: 70;
+    transform: translateX(110%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform .25s ease, opacity .2s ease;
   }
 
   header .menu.open {
-    display: flex !important;
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
 
   header .menu a {
     width: 100%;
+    padding: .65rem .5rem;
   }
 
   header .menu .btn {
