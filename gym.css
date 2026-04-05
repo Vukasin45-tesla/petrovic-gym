@@ -2412,6 +2412,7 @@ header .menu a {
   width: 160px;
   height: auto;
   max-width: 100%;
+  transform: translateX(-75px);
 }
 
 .hero-grid {
@@ -2496,6 +2497,27 @@ header .menu a {
 }
 
 @media (max-width: 1023px) {
+  .logo {
+    transform: none;
+  }
+
+  .avatar {
+    aspect-ratio: auto;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .avatar .radnici {
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+    display: block;
+    margin-inline: auto;
+  }
+
   .hero-grid .h1,
   .hero-grid .eyebrow,
   .hero-grid .hero-cta,

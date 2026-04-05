@@ -26,16 +26,25 @@
   <header>
     <div class="container nav">
       <div class="brand">
-        <img src="images/logo.png" class="logo">
+        <img src="images/logo.png" class="logo" alt="Petrović Gym logo" />
       </div>
-      <nav class="menu" id="menu">
+      <nav class="menu" id="menu" aria-label="Glavna navigacija">
         <a href="#services">Usluge</a>
         <a href="#trainers">Treneri</a>
         <a href="#schedule">Termini</a>
         <a href="#pricing">Cenovnik</a>
         <a href="#contact" class="btn">Kontakt</a>
       </nav>
-      <button class="hamburger" id="hamburger" aria-label="Otvori meni">☰</button>
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Otvori meni"
+        aria-controls="menu"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
     </div>
   </header>
 
@@ -106,10 +115,17 @@
             <div id="summaryLines" style="display:grid;gap:.35rem;color:#cfe2f5"></div>
             <p style="margin:.6rem 0 0"><strong>Ukupno: <span id="total-amount">0</span> RSD</strong></p>
             <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem">
-              <a id="payCard" class="btn" href="#" target="_blank" rel="noopener">Plati karticom</a>
+              <button id="payCard" class="btn" type="button">Plati karticom</button>
               <button id="payDesk" class="btn" type="button">Uplata na recepciji</button>
             </div>
             <p style="color:var(--muted);margin-top:.6rem">„Plati karticom“ vodi na tvoj Stripe/Monri link (zameni URL u skripti). „Uplata na recepciji“ rezerviše paket 48h.</p>
+          </div>
+
+          <div id="card-payment-panel" class="card" style="display:none;margin-top:1rem;background:#09182a;border:1px solid rgba(34,211,238,.35)">
+            <h4 style="margin-top:0">Direktno plaćanje karticom</h4>
+            <p style="margin:.5rem 0;color:#cfe2f5">Podaci su potvrđeni. Klikni ispod da nastaviš na bezbednu stranicu za plaćanje.</p>
+            <div id="paymentOrderInfo" style="display:grid;gap:.35rem;color:#dbeafe"></div>
+            <a id="cardCheckoutLink" class="btn btn-primary" href="#" target="_blank" rel="noopener" style="margin-top:.8rem;justify-content:center;width:100%">Idi na sigurno plaćanje</a>
           </div>
         </div>
       </div>
@@ -130,6 +146,8 @@
   if (hamburger && menu) {
     hamburger.addEventListener('click', () => {
       menu.classList.toggle('open');
+      const expanded = menu.classList.contains('open');
+      hamburger.setAttribute('aria-expanded', String(expanded));
     });
   }
 
@@ -141,7 +159,14 @@
   const applyPromo   = document.getElementById('applyPromo');
   const summaryLines = document.getElementById('summaryLines');
   const totalEl      = document.getElementById('total-amount');
-  const payCardLink  = document.getElementById('payCard');
+  const payCardBtn   = document.getElementById('payCard');
+  const checkoutLink = document.getElementById('cardCheckoutLink');
+  const paymentPanel = document.getElementById('card-payment-panel');
+  const orderInfoEl  = document.getElementById('paymentOrderInfo');
+  const fullNameEl   = document.getElementById('fullName');
+  const emailEl      = document.getElementById('emailBuy');
+  const phoneEl      = document.getElementById('phoneBuy');
+  const startDateEl  = document.getElementById('startDate');
 
   if (!planSelect || !periodSelect || !summaryLines || !totalEl) {
     return; // nešto fali u DOM-u, prekid
@@ -244,10 +269,52 @@
     totalEl.textContent = total.toLocaleString('sr-RS');
 
     // Link za plaćanje (ovde kasnije staviš pravi URL)
-    if (payCardLink) {
+    if (checkoutLink) {
       const addonsParam = encodeURIComponent(addons.map(a => a.name).join(','));
       const payLink = `https://example-payments.com/checkout?plan=${encodeURIComponent(plan.name)}&months=${period.mult}&addons=${addonsParam}&total=${total}`;
-      payCardLink.setAttribute('href', payLink);
+      checkoutLink.setAttribute('href', payLink);
+    }
+  }
+
+  function openCardPayment() {
+    const fullName = (fullNameEl?.value || '').trim();
+    const email = (emailEl?.value || '').trim();
+    const phone = (phoneEl?.value || '').trim();
+    const startDate = startDateEl?.value || '';
+
+    if (!fullName || !email || !phone) {
+      alert('Molim te popuni: ime i prezime, email i telefon pre plaćanja karticom.');
+      return;
+    }
+
+    const plan = getPlan();
+    const period = getPeriod();
+    const addons = getAddons();
+    const total = totalEl.textContent || '0';
+    const readableDate = startDate ? new Date(startDate).toLocaleDateString('sr-RS') : 'Po dogovoru';
+
+    if (orderInfoEl) {
+      orderInfoEl.innerHTML = '';
+      const infoRows = [
+        `Kupac: ${fullName}`,
+        `Email: ${email}`,
+        `Telefon: ${phone}`,
+        `Program: ${plan.name} (${period.label})`,
+        `Dodaci: ${addons.length ? addons.map(a => a.name).join(', ') : 'Nema dodataka'}`,
+        `Početak: ${readableDate}`,
+        `Ukupno za naplatu: ${total} RSD`
+      ];
+
+      infoRows.forEach(text => {
+        const row = document.createElement('div');
+        row.textContent = text;
+        orderInfoEl.appendChild(row);
+      });
+    }
+
+    if (paymentPanel) {
+      paymentPanel.style.display = 'block';
+      paymentPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 
@@ -270,6 +337,9 @@
   planSelect.addEventListener('change', update);
   periodSelect.addEventListener('change', update);
   addonInputs.forEach(input => input.addEventListener('change', update));
+  if (payCardBtn) {
+    payCardBtn.addEventListener('click', openCardPayment);
+  }
 
   // Prvi proračun
   update();
