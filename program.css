@@ -96,6 +96,19 @@ header {
   font-weight: 800;
 }
 
+/* Logo stabilizacija za index2 */
+header .brand .logo {
+  position: relative !important;
+  left: 0 !important;
+  top: 0 !important;
+  transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  width: clamp(96px, 18vw, 160px);
+  height: auto;
+  max-width: 100%;
+}
+
 .badge {
   width: 34px;
   height: 34px;
@@ -123,66 +136,6 @@ header {
   font-size: 1.6rem;
 }
 
-.side-nav-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: .4rem;
-  padding: .5rem .85rem;
-  border-radius: 999px;
-  border: 1px solid var(--line-strong);
-  color: var(--text);
-  background: rgba(20, 24, 33, .85);
-  cursor: pointer;
-}
-
-.side-nav {
-  position: fixed;
-  top: 0;
-  right: -280px;
-  width: min(280px, 86vw);
-  height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  gap: .5rem;
-  padding: 1rem;
-  background: #0f1115;
-  border-left: 1px solid var(--line);
-  box-shadow: -12px 0 28px rgba(0, 0, 0, .45);
-  z-index: 120;
-  transition: right .25s ease;
-}
-
-.side-nav.open {
-  right: 0;
-}
-
-.side-nav a {
-  padding: .7rem .8rem;
-  border-radius: 10px;
-  border: 1px solid transparent;
-  color: var(--text);
-}
-
-.side-nav a:hover {
-  border-color: var(--line);
-  background: rgba(34, 211, 238, .08);
-}
-
-.side-nav-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(2, 6, 23, .45);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .2s ease;
-  z-index: 110;
-}
-
-.side-nav-backdrop.open {
-  opacity: 1;
-  pointer-events: auto;
-}
 
 /* ===============================
    Buttons
@@ -575,12 +528,10 @@ header .menu .btn:hover {
     padding: 0.5rem 0;
   }
 
-  .side-nav-toggle {
-    display: inline-flex;
-  }
-
   .hamburger {
-    display: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   header .menu {
@@ -611,14 +562,6 @@ header .menu .btn:hover {
   header .menu .btn {
     width: 100%;
     justify-content: center;
-  }
-}
-
-@media (min-width: 681px) {
-  .side-nav-toggle,
-  .side-nav,
-  .side-nav-backdrop {
-    display: none !important;
   }
 }
 

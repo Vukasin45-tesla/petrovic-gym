@@ -45,27 +45,8 @@
       >
         ☰
       </button>
-      <button
-        class="side-nav-toggle"
-        id="sideNavToggle"
-        type="button"
-        aria-label="Otvori bočni meni"
-        aria-controls="sideNav"
-        aria-expanded="false"
-      >
-        ☰ Meni
-      </button>
     </div>
   </header>
-
-  <div class="side-nav-backdrop" id="sideNavBackdrop"></div>
-  <aside class="side-nav" id="sideNav" aria-label="Bočna navigacija">
-    <a href="index.html#services">Usluge</a>
-    <a href="index.html#trainers">Treneri</a>
-    <a href="index.html#schedule">Termini</a>
-    <a href="index.html#pricing">Cenovnik</a>
-    <a href="index.html#contact">Kontakt</a>
-  </aside>
 
         <div id="checkout" class="card" style="margin-top:1rem">
           <h3 style="margin-top:0">Kupovina programa</h3>
@@ -162,9 +143,6 @@
   // Hamburger meni (mobilni)
   const hamburger = document.getElementById('hamburger');
   const menu = document.getElementById('menu');
-  const sideNavToggle = document.getElementById('sideNavToggle');
-  const sideNav = document.getElementById('sideNav');
-  const sideNavBackdrop = document.getElementById('sideNavBackdrop');
   if (hamburger && menu) {
     hamburger.addEventListener('click', () => {
       menu.classList.toggle('open');
@@ -178,23 +156,6 @@
         hamburger.setAttribute('aria-expanded', 'false');
       });
     });
-  }
-
-  if (sideNavToggle && sideNav && sideNavBackdrop) {
-    const closeSideNav = () => {
-      sideNav.classList.remove('open');
-      sideNavBackdrop.classList.remove('open');
-      sideNavToggle.setAttribute('aria-expanded', 'false');
-    };
-
-    sideNavToggle.addEventListener('click', () => {
-      const opened = sideNav.classList.toggle('open');
-      sideNavBackdrop.classList.toggle('open', opened);
-      sideNavToggle.setAttribute('aria-expanded', String(opened));
-    });
-
-    sideNavBackdrop.addEventListener('click', closeSideNav);
-    sideNav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeSideNav));
   }
 
   // Elementi iz forme
