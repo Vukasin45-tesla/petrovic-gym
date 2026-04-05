@@ -26,7 +26,7 @@
   <header>
     <div class="container nav">
       <div class="brand">
-        <img src="images/logo.png" class="logo">
+        <img src="images/logo.png" class="logo" alt="Petrović Gym logo">
       </div>
       <nav class="menu" id="menu" aria-label="Glavna navigacija">
         <a href="#services">Usluge</a>
@@ -135,15 +135,35 @@
   const hamburger = document.getElementById('hamburger');
   const menu = document.getElementById('menu');
   if (hamburger && menu) {
+    const setMenuState = (open) => {
+      menu.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+      document.body.classList.toggle('menu-open', open);
+    };
+
     hamburger.addEventListener('click', () => {
-      const isOpen = menu.classList.toggle('open');
-      hamburger.setAttribute('aria-expanded', String(isOpen));
+      setMenuState(!menu.classList.contains('open'));
+    });
+
+    document.addEventListener('click', (event) => {
+      const clickedInsideMenu = menu.contains(event.target);
+      const clickedHamburger = hamburger.contains(event.target);
+      const isOpen = menu.classList.contains('open');
+
+      if (isOpen && !clickedInsideMenu && !clickedHamburger) {
+        setMenuState(false);
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 767 && menu.classList.contains('open')) {
+        setMenuState(false);
+      }
     });
 
     menu.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => {
-        menu.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
+        setMenuState(false);
       });
     });
   }
