@@ -566,8 +566,7 @@ header .menu .btn:active {
         inset 0 0 4px rgba(255, 255, 255, 0.06);
 }
 
-/* Mobile navigation override: meni je zatvoren dok se ne klikne hamburger,
-   a logo je na istoj fiksnoj poziciji na svim mobilnim širinama. */
+/* Mobile navigation override: isti stil kao na index.html */
 @media (max-width: 767px) {
   header .nav,
   .nav {
@@ -588,7 +587,6 @@ header .menu .btn:active {
     position: static;
     width: 112px;
     height: auto;
-    left: auto;
   }
 
   .hamburger {
@@ -598,38 +596,30 @@ header .menu .btn:active {
   }
 
   header .menu {
-    display: flex !important;
+    display: none !important;
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: min(82vw, 320px);
+    top: 74px;
+    left: 12px;
+    right: 12px;
     flex-direction: column;
     align-items: stretch;
     gap: 0.5rem;
-    padding: 5.4rem 1rem 1rem;
+    padding: 0.95rem;
     background: rgba(15, 17, 21, 0.98);
-    border-left: 1px solid var(--line);
-    border-radius: 0;
+    border: 1px solid var(--line);
+    border-radius: 16px;
     box-shadow: 0 18px 36px rgba(0, 0, 0, 0.9);
     z-index: 70;
-    transform: translateX(110%);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: transform .25s ease, opacity .2s ease;
   }
 
   header .menu.open {
-    transform: translateX(0);
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+    display: flex !important;
   }
 
-  header .menu a {
+  header .menu a,
+  .nav a {
     width: 100%;
-    padding: .65rem .5rem;
+    top: 0 !important;
   }
 
   header .menu .btn {
