@@ -29,11 +29,11 @@
         <img src="images/logo.png" class="logo" alt="Petrović Gym logo" />
       </div>
       <nav class="menu" id="menu" aria-label="Glavna navigacija">
-        <a href="#services">Usluge</a>
-        <a href="#trainers">Treneri</a>
-        <a href="#schedule">Termini</a>
-        <a href="#pricing">Cenovnik</a>
-        <a href="#contact" class="btn">Kontakt</a>
+        <a href="index.html#services">Usluge</a>
+        <a href="index.html#trainers">Treneri</a>
+        <a href="index.html#schedule">Termini</a>
+        <a href="index.html#pricing">Cenovnik</a>
+        <a href="index.html#contact" class="btn">Kontakt</a>
       </nav>
       <button
         class="hamburger"
@@ -148,6 +148,13 @@
       menu.classList.toggle('open');
       const expanded = menu.classList.contains('open');
       hamburger.setAttribute('aria-expanded', String(expanded));
+    });
+
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
     });
   }
 

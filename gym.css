@@ -2983,3 +2983,43 @@ header .menu a {
     margin-top: .85rem;
   }
 }
+
+/* =====================================
+   FINAL MOBILE LAYOUT FIXES
+   ===================================== */
+@media (max-width: 767px) {
+  .services-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
+  }
+
+  .services-grid > .service-card:last-child:nth-child(odd) {
+    grid-column: auto !important;
+    max-width: none !important;
+  }
+}
+
+@media (max-width: 820px) {
+  #contact .container {
+    width: calc(100% - 16px);
+    max-width: 100%;
+  }
+
+  #contact .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  #contact .contact-card {
+    width: 100%;
+    max-width: none;
+    justify-self: stretch !important;
+    padding: 1rem;
+  }
+
+  #contact .field input,
+  #contact .field textarea,
+  #contact .field select {
+    width: 100%;
+  }
+}
