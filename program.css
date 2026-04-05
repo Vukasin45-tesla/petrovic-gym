@@ -365,3 +365,202 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .btn { transition: none; }
 }
+
+/* ===========================
+   Modernizovan NAVBAR
+   =========================== */
+
+/* Header – staklo + senka + blagi fade */
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(15, 17, 21, .7);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 14px 45px rgba(0, 0, 0, 0.9);
+  transition:
+    background 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+/* Kad korisnik pređe mišem preko headera – bela senka / glow */
+
+header:hover {
+  box-shadow:
+    0 22px 65px rgba(0, 0, 0, 0.95),
+    0 0 35px rgba(255, 255, 255, 0.07);
+  border-bottom-color: rgba(226, 232, 240, 0.35);
+}
+
+/* Unutrašnji raspored ostaje isti, samo malo “zategnuto” */
+
+header .nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+}
+
+/* ===========================
+   Linkovi u meniju
+   =========================== */
+
+header .menu {
+  display: flex;
+  gap: 1.6rem;
+  align-items: center;
+}
+
+header .menu a {
+  position: relative;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition:
+    color 0.25s ease,
+    text-shadow 0.25s ease,
+    opacity 0.25s ease;
+  opacity: 0.85;
+}
+
+/* belo-plavi underline koji izlazi iz fade-a */
+
+header .menu a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  border-radius: 999px;
+  background:  #22d3ee;
+  transform: scaleX(0);
+  transform-origin: center;
+  opacity: 0;
+  transition:
+    transform 0.22s ease,
+    opacity 0.22s ease;
+}
+
+/* hover efekat: fade-in + bela senka na tekst + underline */
+
+header .menu a:hover {
+  color: #f9fafb;
+  opacity: 1;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+}
+
+header .menu a:hover::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+/* Aktivni link (ako kasnije dodaš .active klasu na neki <a>) */
+
+header .menu a.active {
+  color: #f9fafb;
+  opacity: 1;
+}
+
+header .menu a.active::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+/* ===========================
+   Kontakt dugme u meniju
+   (specijalan stil samo za NAV)
+   =========================== */
+
+header .menu .btn {
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid;
+  background: rgba(15, 17, 21, .7);
+  color: var(--text);
+  font-weight: 600;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.2s ease;
+}
+
+/* da ne nasleđuje underline animaciju */
+header .menu .btn::after {
+  content: none;
+}
+
+/* hover na Kontakt dugme – jači glow, bela senka */
+
+header .menu .btn:hover {
+  background: linear-gradient(160deg,  rgba(15, 17, 21, .7), rgba(15, 17, 21, .7);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow:
+  0 0 12px rgba(34, 211, 238, 0.25),
+  inset 0 0 4px rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Na mobilu da sve ostane čitko */
+
+@media (max-width: 680px) {
+  header .nav {
+    padding: 0.5rem 0;
+  }
+
+  header .menu {
+    gap: 0.9rem;
+  }
+
+  header .menu a {
+    font-size: 0.97rem;
+  }
+}
+
+/* ===========================
+   Kontakt dugme – clean glossy hover
+   =========================== */
+
+header .menu .btn {
+    padding: 0.45rem 1.2rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: linear-gradient(145deg, #0e1320, #141b29);
+    color: #f9fafb;
+    font-weight: 600;
+    letter-spacing: 0.25px;
+
+    transition:
+        background 0.35s ease,
+        box-shadow 0.35s ease,
+        transform 0.25s ease,
+        border-color 0.3s ease;
+}
+
+/* Clean glossy hover – manje sjaj, više “depth” */
+header .menu .btn:hover {
+    background: linear-gradient(155deg, #152233, #1a2d44);
+    transform: translateY(-2px);
+
+    border-color: rgba(255, 255, 255, 0.38);
+
+    /* elegantan glow, bez šljokica */
+    box-shadow:
+        0 0 10px rgba(100, 150, 220, 0.18),   /* lagani spoljašnji glow */
+        inset 0 0 6px rgba(255, 255, 255, 0.08); /* mekani glossy shine */
+}
+
+/* Klik – blago sabijanje */
+header .menu .btn:active {
+    transform: translateY(0);
+    box-shadow:
+        0 0 6px rgba(100, 150, 220, 0.12),
+        inset 0 0 4px rgba(255, 255, 255, 0.06);
+}
