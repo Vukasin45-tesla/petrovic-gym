@@ -2412,6 +2412,7 @@ header .menu a {
   width: 160px;
   height: auto;
   max-width: 100%;
+  transform: translateX(-175px);
 }
 
 .hero-grid {
@@ -2496,6 +2497,27 @@ header .menu a {
 }
 
 @media (max-width: 1023px) {
+  .logo {
+    transform: none;
+  }
+
+  .avatar {
+    aspect-ratio: auto;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .avatar .radnici {
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+    display: block;
+    margin-inline: auto;
+  }
+
   .hero-grid .h1,
   .hero-grid .eyebrow,
   .hero-grid .hero-cta,
@@ -2798,6 +2820,69 @@ header .menu a {
   align-items: center !important;
   width: 100%;
   min-width: 0;
+
+}
+
+/* =====================================
+   FINAL FIXES (trainer cards + pricing bullets)
+   ===================================== */
+#trainers .card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#trainers .card .avatar {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 14px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--line-weak);
+}
+
+#trainers .card .radnici {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+#pricing .price ul {
+  list-style-position: inside;
+  text-align: left;
+  width: fit-content;
+  margin: 0.9rem auto 0;
+  padding: 0;
+}
+
+#pricing .price li {
+  margin-bottom: 0.2rem;
+}
+
+@media (max-width: 1023px) {
+  #trainers .card .avatar {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+@media (max-width: 767px) {
+  #trainers .trainers {
+    gap: 1rem;
+  }
+
+  #trainers .card .avatar {
+    aspect-ratio: 5 / 6;
+  }
+
+  #pricing .price ul {
+    margin-inline: 0;
+    width: 100%;
+  }
 }
 
 .modern-slider {
@@ -2897,4 +2982,57 @@ header .menu a {
   .modern-slider__dots {
     margin-top: .85rem;
   }
+}
+
+/* =====================================
+   FINAL MOBILE LAYOUT FIXES
+   ===================================== */
+@media (max-width: 767px) {
+  .services-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
+  }
+
+  .services-grid > .service-card:last-child:nth-child(odd) {
+    grid-column: auto !important;
+    max-width: none !important;
+  }
+}
+
+@media (max-width: 820px) {
+  #contact .container {
+    width: calc(100% - 16px);
+    max-width: 100%;
+  }
+
+  #contact .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  #contact .contact-card {
+    width: 100%;
+    max-width: none;
+    justify-self: stretch !important;
+    padding: 1rem;
+  }
+
+  #contact .field input,
+  #contact .field textarea,
+  #contact .field select {
+    width: 100%;
+  }
+}
+
+/* Logo stabilizacija na svim rezolucijama */
+header .brand .logo {
+  position: relative !important;
+  left: 0 !important;
+  top: 0 !important;
+  transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  width: clamp(96px, 18vw, 160px);
+  height: auto;
 }

@@ -77,9 +77,9 @@ header {
   border-bottom: 1px solid var(--line-weak);
 }
 .logo{
-  position: relative;
-  left: -300px;
-  height: 95px;
+  position: static;
+  display: block;
+  height: auto;
   width: 160px;
 }
 .nav {
@@ -94,6 +94,19 @@ header {
   align-items: center;
   gap: .6rem;
   font-weight: 800;
+}
+
+/* Logo stabilizacija za index2 */
+header .brand .logo {
+  position: relative !important;
+  left: 0 !important;
+  top: 0 !important;
+  transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  width: clamp(96px, 18vw, 160px);
+  height: auto;
+  max-width: 100%;
 }
 
 .badge {
@@ -122,6 +135,7 @@ header {
   color: var(--text);
   font-size: 1.6rem;
 }
+
 
 /* ===============================
    Buttons
@@ -193,9 +207,8 @@ header {
 }
 
 .card {
-  position: sticky;
-  left: 300px;
-  width: 1200px;
+  width: min(100%, 1100px);
+  margin-inline: auto;
   background: linear-gradient(180deg, rgba(20,24,33,.65), rgba(20,24,33,.35));
   border: 1px solid var(--line-weak);
   border-radius: var(--radius-lg);
@@ -515,12 +528,40 @@ header .menu .btn:hover {
     padding: 0.5rem 0;
   }
 
+  .hamburger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   header .menu {
-    gap: 0.9rem;
+    position: fixed;
+    top: 78px;
+    right: 12px;
+    left: 12px;
+    display: none;
+    flex-direction: column;
+    gap: .6rem;
+    padding: .9rem;
+    background: rgba(15, 17, 21, 0.98);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 18px 34px rgba(0, 0, 0, .82);
+    z-index: 80;
+  }
+
+  header .menu.open {
+    display: flex;
   }
 
   header .menu a {
     font-size: 0.97rem;
+    width: 100%;
+  }
+
+  header .menu .btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 
