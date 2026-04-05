@@ -2961,3 +2961,139 @@ header .menu a {
     justify-content: center;
   }
 }
+
+/* =====================================
+   Program forma (program.html) – mobile first
+   ===================================== */
+.program-page #checkout.checkout-card {
+  position: static !important;
+  left: auto !important;
+  width: min(1240px, 96vw) !important;
+  margin: 1rem auto 2rem !important;
+  padding: clamp(1rem, 2vw, 1.4rem);
+}
+
+.program-page .checkout-title,
+.program-page .checkout-summary-title {
+  margin-top: 0;
+}
+
+.program-page .promo-row {
+  grid-template-columns: 2fr 1fr;
+}
+
+.program-page .checkout-muted {
+  color: var(--muted);
+}
+
+.program-page .checkout-divider {
+  border-color: #374151;
+  margin: 1rem 0;
+}
+
+.program-page .checkout-summary {
+  position: static !important;
+  left: auto !important;
+  width: 100% !important;
+  margin-top: 1rem;
+  background: #0b1220;
+  border: 1px dashed #374151;
+}
+
+.program-page .summary-lines {
+  display: grid;
+  gap: .35rem;
+  color: #cfe2f5;
+}
+
+.program-page .checkout-total {
+  margin: .6rem 0 0;
+}
+
+.program-page .checkout-actions {
+  display: flex;
+  gap: .6rem;
+  flex-wrap: wrap;
+  margin-top: .8rem;
+}
+
+.program-page .checkout-actions .btn {
+  justify-content: center;
+}
+
+.program-page .checkout-note {
+  margin-top: .6rem;
+}
+
+.program-page .footer-wrap {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.program-page .footer-inner {
+  display: flex;
+  gap: .6rem;
+  align-items: center;
+}
+
+.program-page .field > label:has(input[type="checkbox"]) {
+  display: flex;
+  align-items: flex-start;
+  gap: .55rem;
+  margin-top: .2rem;
+}
+
+.program-page .field > label input[type="checkbox"] {
+  margin-top: .28rem;
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 1023px) {
+  .program-page #checkout.checkout-card {
+    width: min(960px, 95vw) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .program-page #checkout.checkout-card {
+    margin-top: .6rem !important;
+    padding: 1rem;
+    border-radius: 14px;
+  }
+
+  .program-page .form-row {
+    grid-template-columns: 1fr;
+    gap: .7rem;
+  }
+
+  .program-page .promo-row {
+    grid-template-columns: 1fr;
+  }
+
+  .program-page .checkout-actions {
+    flex-direction: column;
+  }
+
+  .program-page .checkout-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 425px) {
+  .program-page #checkout.checkout-card {
+    width: calc(100vw - 18px) !important;
+    padding: .85rem;
+  }
+
+  .program-page .field input,
+  .program-page .field textarea,
+  .program-page .field select {
+    padding: .7rem .8rem;
+    font-size: 16px; /* iOS zoom fix */
+  }
+}

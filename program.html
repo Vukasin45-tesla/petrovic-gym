@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Petrović Gym — Tvoj put do forme</title>
   <meta name="description" content="Petrović Gym u Bloku 45 (Jurija Gagarina 273). 24/7 teretana, personalni i grupni treninzi, sauna i proteinski bar. Prvi trening besplatan!" />
-  <link rel="stylesheet" type="text/css" href="program.css">
+  <link rel="stylesheet" type="text/css" href="gym.css">
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Petrović Gym" />
   <meta property="og:description" content="Moderna teretana u Novom Beogradu. Učlani se danas i iskoristi promotivne pakete." />
@@ -22,7 +22,7 @@
   <meta name="theme-color" content="#0f172a" />
 
 </head>
-<body>
+<body class="program-page">
   <header>
     <div class="container nav">
       <div class="brand">
@@ -46,8 +46,8 @@
     </div>
   </header>
 
-        <div id="checkout" class="card" style="margin-top:1rem">
-          <h3 style="margin-top:0">Kupovina programa</h3>
+        <div id="checkout" class="card checkout-card">
+          <h3 class="checkout-title">Kupovina programa</h3>
 
           <div class="form-row">
             <div class="field">
@@ -77,15 +77,15 @@
             </div>
             <div class="field">
               <label for="promo">Promo kod</label>
-              <div class="form-row" style="grid-template-columns:2fr 1fr">
+              <div class="form-row promo-row">
                 <input id="promo" type="text" placeholder="npr. WELCOME10" />
                 <button id="applyPromo" type="button" class="btn">Primeni</button>
               </div>
-              <p style="color:var(--muted)">Primeri: <code>WELCOME10</code> (−10%), <code>STUDENT15</code> (−15%)</p>
+              <p class="checkout-muted">Primeri: <code>WELCOME10</code> (−10%), <code>STUDENT15</code> (−15%)</p>
             </div>
           </div>
 
-          <hr style="border-color:#374151; margin:1rem 0" />
+          <hr class="checkout-divider" />
 
           <div class="form-row">
             <div class="field">
@@ -108,23 +108,23 @@
               <input id="startDate" type="date" />
             </div>
           </div>
-          <div class="card" style="background:#0b1220;border:1px dashed #374151;margin-top:1rem">
-            <h4 style="margin-top:0">Sažetak</h4>
-            <div id="summaryLines" style="display:grid;gap:.35rem;color:#cfe2f5"></div>
-            <p style="margin:.6rem 0 0"><strong>Ukupno: <span id="total-amount">0</span> RSD</strong></p>
-            <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem">
+          <div class="card checkout-summary">
+            <h4 class="checkout-summary-title">Sažetak</h4>
+            <div id="summaryLines" class="summary-lines"></div>
+            <p class="checkout-total"><strong>Ukupno: <span id="total-amount">0</span> RSD</strong></p>
+            <div class="checkout-actions">
               <a id="payCard" class="btn" href="#" target="_blank" rel="noopener">Plati karticom</a>
               <button id="payDesk" class="btn" type="button">Uplata na recepciji</button>
             </div>
-            <p style="color:var(--muted);margin-top:.6rem">„Plati karticom“ vodi na tvoj Stripe/Monri link (zameni URL u skripti). „Uplata na recepciji“ rezerviše paket 48h.</p>
+            <p class="checkout-muted checkout-note">„Plati karticom“ vodi na tvoj Stripe/Monri link (zameni URL u skripti). „Uplata na recepciji“ rezerviše paket 48h.</p>
           </div>
         </div>
       </div>
     </section>
   </main>
   <footer>
-    <div class="container" style="display:flex;justify-content:space-between;gap:1rem;align-items:center;flex-wrap:wrap">
-      <div style="display:flex;gap:.6rem;align-items:center">
+    <div class="container footer-wrap">
+      <div class="footer-inner">
       </div>
     </div>
   </footer>
