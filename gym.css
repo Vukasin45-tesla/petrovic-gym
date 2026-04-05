@@ -34,7 +34,7 @@ a {
   color: var(--primary);
   text-decoration: none;
 }
-a:hover { opacity: 3.75; }
+a:hover { opacity: 1; }
 
 a:active { opacity: .9; }
 
@@ -74,7 +74,8 @@ header {
   top: 20px;
 }
 .logo{
-  position: absolute;
+  position: static;
+  display: block;
   left: 100px;
   top: 5px;
   width: 160px;
@@ -153,24 +154,6 @@ header {
   }
   .active {
     opacity: 1;
-  }
-  .prev, .next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 20px;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.5);
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 1; 
-  }
-  .prev {
-    left: 10px;
-  }
-  .next {
-    right: 10px;
   }
 .radnici{
   width: 230px;
@@ -263,13 +246,8 @@ header {
 }
 
 /* responsivno: malo veće mete na mobilu */
-@media (max-width: 680px) {
-  .slider-container .prev,
-  .slider-container .next {
-    width: 50px; height: 50px;
-    font-size: 22px;
-  }
-}
+
+
 
 
 
@@ -309,25 +287,17 @@ header {
   margin-top: 1.2rem;
   flex-wrap: wrap;
 }
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-}
+
 .card {
   background: linear-gradient(180deg, rgba(20,24,33,.65), rgba(20,24,33,.35));
-  border: 1px solid var(--line-weak);
-  border-radius: var(--radius-lg);
-  padding: 1rem;
-  animation: fadeInUp 2.6s forwards;
-}
-.card {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 1rem;
   padding: 1.5rem;
+  animation: fadeInUp 2.6s forwards;
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
 }
+
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
@@ -344,15 +314,7 @@ header {
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
 }
-.avatar {
-  aspect-ratio: 1 / 1;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(135deg, #1f2937, #0b1220);
-  color: #a5f3fc;
-  font-size: 2rem;
-  font-weight: 800;
-}
+
 .pricing {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -416,6 +378,250 @@ header {
   border: 1px solid var(--line);
 }
 
+/* =====================================
+   SEKCIJA: ŠTA NUDIMO (NOVI DIZAJN)
+   ===================================== */
+
+.services-section {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(3rem, 5vw, 5rem) 0;
+  isolation: isolate;
+}
+
+/* blagi animated glow u pozadini sekcije */
+.services-bg-orbit {
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(34,211,238,0.22), transparent 55%),
+    radial-gradient(circle at 40% 90%, rgba(125,211,252,0.15), transparent 60%);
+  opacity: 0.18;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: servicesOrbit 28s linear infinite alternate;
+  z-index: -2;
+}
+
+.services-bg-orbit--right {
+  inset: -45%;
+  background:
+    radial-gradient(circle at 100% 10%, rgba(56,189,248,0.26), transparent 55%),
+    radial-gradient(circle at 70% 100%, rgba(15,23,42,0.9), transparent 60%);
+  opacity: 0.22;
+  animation-direction: alternate-reverse;
+}
+
+/* header unutar sekcije */
+.services-header {
+  max-width: 640px;
+  margin-bottom: 2.4rem;
+}
+
+.services-title {
+  font-size: clamp(1.8rem, 2.1vw + 1rem, 2.4rem);
+  margin: 0.25rem 0 0.8rem;
+}
+
+.services-subtitle {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* grid za 3 kartice */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.4rem;
+}
+
+/* osnovni izgled kartica */
+.service-card {
+  position: relative;
+  padding: 1.5rem 1.4rem 1.3rem;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background:
+    radial-gradient(circle at 0 0, rgba(34,211,238,0.15), transparent 60%),
+    linear-gradient(145deg, rgba(15,23,42,0.96), rgba(15,23,42,0.86));
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(15,23,42,0.9);
+  overflow: hidden;
+  transform-origin: center center;
+ transform: translateY(0) scale(1);
+  opacity: 1;
+  backdrop-filter: blur(18px);
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease,
+    background 0.35s ease,
+    opacity 0.4s ease;
+}
+
+
+
+/* klasa koju dodaje JS kad je sekcija u viewport-u */
+.service-card.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* dodatni glow sloj */
+.service-card-glow {
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(34,211,238,0.35), transparent 60%),
+    radial-gradient(circle at 120% 120%, rgba(59,130,246,0.25), transparent 65%);
+  opacity: 0;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  z-index: -1;
+}
+
+/* gornji mali "badge" */
+.service-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #e0f2fe;
+  background: rgba(15,23,42,0.85);
+  border: 1px solid rgba(125,211,252,0.35);
+  box-shadow: 0 8px 22px rgba(15,23,42,0.9);
+  margin-bottom: 0.9rem;
+}
+
+/* ikonica u gornjem desnom uglu */
+.service-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1.05rem;
+  font-size: 1.6rem;
+  opacity: 0.92;
+  transform: translateY(4px);
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+/* tekst unutar kartice */
+.service-card h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.1rem;
+}
+
+.service-intro {
+  margin: 0 0 0.7rem;
+  color: #cbd5f5;
+  font-size: 0.95rem;
+}
+
+.service-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.service-list li {
+  position: relative;
+  padding-left: 1.2rem;
+  margin-bottom: 0.45rem;
+}
+
+
+
+.service-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: radial-gradient(circle, var(--accent), transparent 60%);
+  box-shadow: 0 0 10px rgba(34,211,238,0.7);
+}
+
+/* tagovi u dnu kartice */
+.service-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.9rem;
+}
+
+.service-tag {
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148,163,184,0.45);
+  font-size: 0.78rem;
+  color: #e5e7eb;
+  background: rgba(15,23,42,0.9);
+}
+
+/* hover efekat – blagi tilt i glow */
+.service-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 1),
+    0 0 0 1px rgba(34,211,238,0.6);
+  border-color: rgba(34,211,238,0.9);
+  background:
+    radial-gradient(circle at 0 0, rgba(34,211,238,0.28), transparent 60%),
+    linear-gradient(145deg, rgba(15,23,42,0.98), rgba(15,23,42,0.9));
+}
+
+.service-card:hover .service-card-glow {
+  opacity: 1;
+}
+
+.service-card:hover .service-icon {
+  transform: translateY(-2px);
+  opacity: 1;
+}
+
+/* blage varijacije po tipu kartice */
+.service-card--gym .service-chip {
+  border-color: rgba(34,211,238,0.7);
+}
+
+.service-card--group .service-chip {
+  border-color: rgba(59,130,246,0.75);
+}
+
+.service-card--pt .service-chip {
+  border-color: rgba(248,113,113,0.9);
+}
+
+/* animacija pozadinskih orbita */
+@keyframes servicesOrbit {
+  0% {
+    transform: translate3d(-10px, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(10px, 8px, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(-8px, 14px, 0) scale(1.02);
+  }
+}
+
+/* RESPONSIVE prilagodjavanje */
+
+
+
+
+
+
+
 /* ===============================
    Forme
    =============================== */
@@ -463,64 +669,11 @@ footer {
 /* ===============================
    Responsive
    =============================== */
-@media (max-width: 980px) {
-  .hero-grid { grid-template-columns: 1fr; }
-  .grid-3, .pricing { grid-template-columns: 1fr 1fr; }
-  .trainers { grid-template-columns: repeat(2, 1fr); }
-}
 
-@media (max-width: 680px) {
-  /* header layout na mobilu */
-  header .nav {
-    padding: 0.4rem 0;
-  }
 
-  /* prikaži hamburger */
-  .hamburger {
-    display: flex;
-  }
 
-  /* osnovni izgled menija – ali je sakriven */
-  header .menu {
-    position: fixed;
-    top: 72px;
-    right: 16px;
-    left: 16px;
 
-    display: none;              /* VAŽNO: skriven dok nema .open */
-    flex-direction: column;
-    align-items: flex-start;
-    gap: .6rem;
 
-    padding: .9rem 1.2rem;
-    min-width: 220px;
-
-    background: rgba(15,17,21,.98);
-    border-radius: 18px;
-    border: 1px solid var(--line);
-    box-shadow: 0 20px 50px rgba(0,0,0,.9);
-    z-index: 60;
-  }
-
-  /* kada JS doda .open, meni se pojavljuje */
-  header .menu.open {
-    display: flex;
-  }
-
-  header .menu a {
-    width: 100%;
-    padding: 0.3rem 0;
-    font-size: 0.98rem;
-  }
-
-  header .menu .btn {
-    width: 100%;
-    justify-content: center;
-    margin-top: .3rem;
-  }
-  header .menu { display: none; }
-  header .menu.open { display: flex; }
-}
 
 
 
@@ -871,455 +1024,39 @@ header .menu a.active::after {
 
 /* Na mobilu da sve ostane čitko */
 
-@media (max-width: 680px) {
-  header .nav {
-    padding: 0.5rem 0;
-  }
 
-  header .menu {
-    gap: 0.9rem;
-  }
 
-  header .menu a {
-    font-size: 0.97rem;
-  }
-}
 
 /* ===============================
    Global mobile optimizacija
    =============================== */
 
 /* Tablet & manji laptopi */
-@media (max-width: 980px) {
-  body {
-    font-size: 15px;
-  }
 
-  section {
-    padding: 2.2rem 0;
-  }
 
-  .container {
-    width: min(100%, 94%);
-  }
-
-  header {
-    height: 90px;
-  }
-
-  .logo {
-    left: 24px;
-    top: 6px;
-    width: 130px;
-    height: auto;
-  }
-
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .slider-container {
-    width: 100%;
-    max-width: 520px;
-    height: 320px;
-    margin: 0 auto;
-    right: 0;
-    top: 0;
-  }
-
-  .h1 {
-    font-size: clamp(1.9rem, 4vw, 2.5rem);
-  }
-
-  .hero-cta {
-    gap: 0.6rem;
-  }
-
-  .grid-3,
-  .pricing {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .trainers {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .cta {
-    grid-template-columns: 1fr;
-  }
-}
 
 /* Telefone (glavni breakpoint) */
-@media (max-width: 680px) {
-  body {
-    font-size: 14px;
-  }
 
-  section {
-    padding: 1.8rem 0;
-  }
 
-  header {
-    height: 70px;
-  }
-
-  .nav {
-    padding: 0.4rem 0;
-  }
-
-  .logo {
-    left: 16px;
-    top: 6px;
-    width: 110px;
-    height: auto;
-  }
-
-  /* hero */
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
-  }
-
-  .h1 {
-    font-size: 1.7rem;
-  }
-
-  .lead {
-    font-size: 0.9rem;
-  }
-
-  .hero-cta {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  /* slider punu širinu na mobilu */
-  .slider-container {
-    width: 100%;
-    max-width: 100%;
-    height: 260px;
-    margin-top: 0.5rem;
-  }
-
-  /* kartice */
-  .grid-3,
-  .pricing {
-    grid-template-columns: 1fr;
-  }
-
-  .card,
-  .price {
-    padding: 1.1rem;
-  }
-
-  /* treneri */
-  .trainers {
-    grid-template-columns: 1fr;
-  }
-
-  /* forma */
-  .form-row {
-    grid-template-columns: 1fr;
-    gap: 0.6rem;
-  }
-
-  .field input,
-  .field textarea,
-  .field select {
-    font-size: 0.9rem;
-    padding: 0.65rem 0.8rem;
-  }
-
-  .btn,
-  .btn-primary,
-  header .menu .btn {
-    padding: 0.55rem 0.9rem;
-    font-size: 0.9rem;
-  }
-
-  /* tabela i CTA da dišu */
-  .schedule th,
-  .schedule td {
-    padding: 0.6rem;
-  }
-
-  .cta {
-    grid-template-columns: 1fr;
-    padding: 0.9rem;
-  }
-}
 
 /* Veoma mali telefoni / uske širine */
-@media (max-width: 480px) {
-  .h1 {
-    font-size: 1.5rem;
-  }
 
-  .eyebrow {
-    font-size: 0.75rem;
-  }
 
-  .hero-cta {
-    gap: 0.5rem;
-  }
-
-  .slider-container {
-    height: 220px;
-  }
-
-  .card,
-  .price {
-    padding: 0.9rem;
-  }
-
-  footer {
-    padding: 1.5rem 0;
-    font-size: 0.85rem;
-  }
-}
 
 
 /* ================================
    iPhone 12–17 (Pro / Pro Max)
    PORTRAIT (VERTICAL)
    ================================ */
-@media only screen
-  and (min-device-width: 390px)
-  and (max-device-width: 430px)
-  and (-webkit-device-pixel-ratio: 3)
-  and (orientation: portrait) {
 
-  /* Osnovni text i spacing */
-  body {
-    font-size: 14px;
-    line-height: 1.4;
-    padding: 0;
-    margin: 0;
-  }
 
-  header {
-    height: 70px;
-  }
-
-  .nav {
-    padding: 0.4rem 0;
-  }
-
-  .logo {
-    left: 16px;
-    top: 6px;
-    width: 110px;
-    height: auto;
-  }
-
-  /* Hero sekcija – jedan stupac */
-  .hero-grid,
-  .hero,
-  .hero-inner {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
-  }
-
-  h1,
-  .h1 {
-    font-size: 1.7rem;
-  }
-
-  .lead,
-  .subtitle {
-    font-size: 0.9rem;
-  }
-
-  .hero-cta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.55rem;
-  }
-
-  /* Slider / slika u hero sekciji */
-  .slider-container,
-  .hero-image {
-    width: 100%;
-    max-width: 100%;
-    height: 250px;
-    margin-top: 0.5rem;
-    right: 0;
-    top: 0;
-  }
-
-  /* Grid sekcije – kartice u jednom stupcu */
-  .grid-3,
-  .grid-4,
-  .pricing,
-  .trainers,
-  .features,
-  .cards {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .card,
-  .price,
-  .trainer,
-  .feature {
-    padding: 1rem;
-  }
-
-  /* Tabela rasporeda */
-  .schedule table {
-    width: 100%;
-  }
-
-  .schedule th,
-  .schedule td {
-    padding: 0.6rem;
-    font-size: 0.85rem;
-  }
-
-  /* Forma za kontakt / članstvo */
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.6rem;
-  }
-
-  .field input,
-  .field textarea,
-  .field select {
-    font-size: 0.9rem;
-    padding: 0.65rem 0.8rem;
-  }
-
-  .btn,
-  .btn-primary,
-  header .menu .btn {
-    padding: 0.55rem 0.9rem;
-    font-size: 0.9rem;
-  }
-
-  /* Footer – centriran sadržaj */
-  footer,
-  .footer-inner {
-    text-align: center;
-  }
-}
 
 /* ================================
    iPhone 12–17 (Pro / Pro Max)
    LANDSCAPE (HORIZONTAL)
    ================================ */
-@media only screen
-  and (min-device-width: 390px)
-  and (max-device-width: 430px)
-  and (-webkit-device-pixel-ratio: 3)
-  and (orientation: landscape) {
 
-  body {
-    font-size: 15px;
-    line-height: 1.45;
-  }
 
-  header {
-    height: 64px;
-  }
-
-  .nav {
-    padding: 0.3rem 0.8rem;
-  }
-
-  .logo {
-    left: 20px;
-    top: 8px;
-    width: 120px;
-  }
-
-  /* Hero – dva stupca kad ima više širine */
-  .hero-grid,
-  .hero,
-  .hero-inner {
-    display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-    align-items: center;
-    gap: 1.4rem;
-  }
-
-  h1,
-  .h1 {
-    font-size: 1.9rem;
-  }
-
-  .lead,
-  .subtitle {
-    font-size: 1rem;
-  }
-
-  .hero-cta {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 0.7rem;
-    align-items: center;
-  }
-
-  .slider-container,
-  .hero-image {
-    width: 100%;
-    max-width: 100%;
-    height: 280px;
-  }
-
-  /* Kartice – 2 u redu gdje ima mjesta */
-  .grid-3,
-  .grid-4,
-  .pricing,
-  .trainers,
-  .features,
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-  }
-
-  /* Ako želiš da cijene budu 3 u redu u landscape: */
-  .pricing.pricing--three,
-  .grid-3.landscape-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  /* Raspored – više prostora horizontalno */
-  .schedule th,
-  .schedule td {
-    padding: 0.55rem 0.75rem;
-    font-size: 0.9rem;
-  }
-
-  /* Forma – dva stupca gdje ima širine */
-  .form-row {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.8rem;
-  }
-
-  .form-row.full-width {
-    grid-template-columns: 1fr;
-  }
-
-  .btn,
-  .btn-primary,
-  header .menu .btn {
-    padding: 0.6rem 1.1rem;
-    font-size: 0.95rem;
-  }
-
-  footer,
-  .footer-inner {
-    text-align: center;
-  }
-}
 
 .hero-grid {
   display: grid;
@@ -1343,4 +1080,1821 @@ header .menu a.active::after {
 .main-media {
   display: flex;
   justify-content: flex-end;
+}
+
+
+
+/* =====================================
+   Contact & Location – kompaktnije + pozadinska animacija
+   ===================================== */
+.contact-section{
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2.2rem, 3vw, 3.2rem) 0;
+  isolation: isolate;
+}
+
+.contact-head{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .4rem 1.2rem;
+  margin-bottom: .95rem;
+}
+
+.contact-sub{ margin: 0; color: var(--muted); }
+.muted{ color: var(--muted); margin: 0; }
+
+.contact-grid{
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.contact-card{
+  padding: 1.1rem;
+}
+
+.contact-card--location h3{ margin: 0 0 .35rem; }
+.contact-card--location .hours h3{ margin: 0 0 .35rem; }
+
+.map-wrap{
+  aspect-ratio: 16 / 10;
+  max-height: 260px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: linear-gradient(135deg,#1f2937,#0b1220);
+  border: 1px solid rgba(125,211,252,.14);
+  box-shadow: 0 18px 45px rgba(0,0,0,.7);
+}
+
+.map-wrap iframe{
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.hours{
+  margin-top: .9rem;
+  padding-top: .85rem;
+  border-top: 1px dashed rgba(125,211,252,.14);
+}
+
+/* --- animirana pozadina (beskonačno) --- */
+.contact-bg{
+  position: absolute;
+  inset: -45%;
+  pointer-events: none;
+  z-index: -2;
+  opacity: .22;
+  mix-blend-mode: screen;
+  filter: blur(2px);
+  transform: translate3d(0,0,0);
+}
+
+.contact-bg--a{
+  background:
+    radial-gradient(circle at 12% 18%, rgba(34,211,238,.38), transparent 55%),
+    radial-gradient(circle at 86% 30%, rgba(125,211,252,.22), transparent 58%),
+    radial-gradient(circle at 55% 92%, rgba(56,189,248,.18), transparent 62%);
+  animation: contactDriftA 18s linear infinite;
+}
+
+.contact-bg--b{
+  opacity: .16;
+  background:
+    conic-gradient(from 180deg,
+      rgba(34,211,238,.20),
+      rgba(15,23,42,0) 25%,
+      rgba(125,211,252,.16) 55%,
+      rgba(15,23,42,0) 75%,
+      rgba(34,211,238,.20));
+  animation: contactDriftB 26s linear infinite;
+}
+
+.contact-gridlines{
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: .08;
+  background:
+    linear-gradient(to right, rgba(125,211,252,.22) 1px, transparent 1px) 0 0 / 44px 44px,
+    linear-gradient(to bottom, rgba(125,211,252,.18) 1px, transparent 1px) 0 0 / 44px 44px;
+  mask-image: radial-gradient(circle at 35% 25%, black 0%, transparent 65%);
+  animation: contactGridMove 22s linear infinite;
+}
+
+@keyframes contactDriftA{
+  0%   { transform: translate3d(-18px, -10px, 0) scale(1) rotate(0deg); }
+  50%  { transform: translate3d(16px, 14px, 0)  scale(1.06) rotate(8deg); }
+  100% { transform: translate3d(-10px, 18px, 0) scale(1.02) rotate(16deg); }
+}
+
+@keyframes contactDriftB{
+  0%   { transform: translate3d(20px, 14px, 0) rotate(0deg) scale(1.02); }
+  100% { transform: translate3d(-22px, -16px, 0) rotate(1turn) scale(1.07); }
+}
+
+@keyframes contactGridMove{
+  0%   { background-position: 0 0, 0 0; }
+  100% { background-position: 220px 0, 0 220px; }
+}
+
+/* responsive */
+
+
+
+
+
+
+/* Poštovanje preferencija korisnika */
+@media (prefers-reduced-motion: reduce){
+  .contact-bg, .contact-gridlines{ animation: none !important; }
+}
+/* =========================================================
+   NOVI RESPONSIVE BREAKPOINTI
+   320px, 375px, 425px, 768px, 1024px, 1440px
+   ========================================================= */
+
+/* 1440px i više */
+@media (min-width: 1440px) {
+  .container {
+    width: min(1240px, 88%);
+  }
+
+  section {
+    padding: clamp(3.5rem, 3vw + 1rem, 6rem) 0;
+  }
+
+  header {
+    height: 108px;
+  }
+
+  header .nav {
+    min-height: 108px;
+    padding: 0;
+  }
+
+  header .menu {
+    gap: 1.8rem;
+  }
+
+  header .menu a,
+  .nav a {
+    top: 0;
+  }
+
+  .logo {
+    left: 72px;
+    top: 8px;
+    width: 170px;
+    height: auto;
+  }
+
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(520px, 1fr);
+    gap: 3.5rem;
+  }
+
+  .hero-grid > div:first-child {
+    max-width: 580px;
+  }
+
+  .slider-container {
+    width: min(700px, 100%);
+    height: 460px;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .trainers {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .pricing {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .contact-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(360px, .8fr);
+    gap: 1.25rem;
+  }
+
+  .map-wrap {
+    max-height: 300px;
+  }
+}
+
+/* 1024px – 1439px */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .container {
+    width: min(1120px, 92%);
+  }
+
+  section {
+    padding: clamp(2.75rem, 2vw + 1rem, 4.5rem) 0;
+  }
+
+  header {
+    height: 96px;
+  }
+
+  header .nav {
+    min-height: 96px;
+    padding: 0;
+  }
+
+  header .menu {
+    gap: 1.1rem;
+  }
+
+  header .menu a,
+  .nav a {
+    top: 0;
+    font-size: 0.93rem;
+  }
+
+  .logo {
+    left: 28px;
+    top: 8px;
+    width: 138px;
+    height: auto;
+  }
+
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, .95fr);
+    gap: 2rem;
+  }
+
+  .hero-grid > div:first-child {
+    max-width: 500px;
+  }
+
+  .h1 {
+    font-size: clamp(2rem, 2vw + 1rem, 2.9rem);
+  }
+
+  .slider-container {
+    width: min(560px, 100%);
+    height: 360px;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .trainers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .radnici {
+    width: 220px;
+    height: 280px;
+  }
+
+  .pricing {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .price,
+  .card {
+    padding: 1.2rem;
+  }
+
+  .contact-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(320px, .75fr);
+    gap: 1rem;
+  }
+
+  .map-wrap {
+    max-height: 250px;
+  }
+}
+
+/* 768px – 1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  body {
+    font-size: 15px;
+  }
+
+  .container {
+    width: min(100%, 94%);
+  }
+
+  section {
+    padding: 2.35rem 0;
+  }
+
+  header {
+    height: 88px;
+  }
+
+  header .nav {
+    min-height: 88px;
+    padding: 0;
+  }
+
+  header .menu {
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  header .menu a,
+  .nav a {
+    top: 0;
+    font-size: 0.9rem;
+  }
+
+  header .menu .btn {
+    padding: 0.5rem 1rem;
+  }
+
+  .logo {
+    left: 20px;
+    top: 10px;
+    width: 126px;
+    height: auto;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+  }
+
+  .hero-grid > div:first-child {
+    max-width: 100%;
+  }
+
+  .main-media {
+    justify-content: center;
+  }
+
+  .h1 {
+    font-size: 2.25rem;
+  }
+
+  .lead {
+    max-width: 62ch;
+  }
+
+  .slider-container {
+    width: min(100%, 640px);
+    height: 340px;
+    margin-inline: auto;
+  }
+
+  .services-grid,
+  .pricing {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .services-grid > .service-card:last-child:nth-child(odd),
+  .pricing > .price:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 100%;
+  }
+
+  .services-grid > .service-card:last-child:nth-child(odd) {
+    max-width: calc((100% - 1.4rem) / 2);
+  }
+
+  .pricing > .price:last-child:nth-child(odd) {
+    max-width: calc((100% - 1rem) / 2);
+  }
+
+  .trainers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .radnici {
+    width: 210px;
+    height: 260px;
+  }
+
+  .contact-grid,
+  .form-row,
+  .cta {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .map-wrap {
+    max-height: 240px;
+  }
+
+  .schedule th,
+  .schedule td {
+    padding: 0.75rem 0.65rem;
+  }
+}
+
+/* 426px – 767px */
+@media (min-width: 426px) and (max-width: 767px) {
+  body {
+    font-size: 14px;
+  }
+
+  .container {
+    width: min(100%, 92%);
+  }
+
+  section,
+  .contact-section,
+  .services-section {
+    padding: 2rem 0;
+  }
+
+  header {
+    height: 78px;
+  }
+
+  header .nav,
+  .nav {
+    min-height: 78px;
+    padding: 0;
+  }
+
+  .logo {
+    left: 16px;
+    top: 10px;
+    width: 118px;
+    height: auto;
+  }
+
+  .hamburger {
+    display: flex;
+    margin-left: auto;
+  }
+
+  header .menu {
+    position: fixed;
+    top: 84px;
+    right: 16px;
+    left: 16px;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.55rem;
+    padding: 1rem;
+    background: rgba(15, 17, 21, 0.98);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.9);
+    z-index: 60;
+  }
+
+  header .menu.open {
+    display: flex;
+  }
+
+  header .menu a,
+  .nav a {
+    top: 0;
+    width: 100%;
+    font-size: 0.98rem;
+    padding: 0.2rem 0;
+  }
+
+  header .menu .btn {
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.25rem;
+  }
+
+  .hero-grid,
+  .contact-grid,
+  .form-row,
+  .cta {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-grid {
+    gap: 1.35rem;
+  }
+
+  .hero-grid > div:first-child {
+    max-width: 100%;
+  }
+
+  .main-media {
+    justify-content: center;
+  }
+
+  .h1 {
+    font-size: 1.95rem;
+  }
+
+  .lead {
+    font-size: 0.95rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+  }
+
+  .hero-cta .btn {
+    justify-content: center;
+  }
+
+  .slider-container {
+    width: 100%;
+    height: 300px;
+    margin-inline: auto;
+  }
+
+  .slider-container .prev,
+  .slider-container .next {
+    width: 48px;
+    height: 48px;
+    font-size: 21px;
+  }
+
+  .services-grid,
+  .pricing {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .trainers {
+    grid-template-columns: 1fr;
+  }
+
+  .services-grid > .service-card:last-child:nth-child(odd),
+  .pricing > .price:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 100%;
+  }
+
+  .services-grid > .service-card:last-child:nth-child(odd) {
+    max-width: calc((100% - 1.4rem) / 2);
+  }
+
+  .pricing > .price:last-child:nth-child(odd) {
+    max-width: calc((100% - 1rem) / 2);
+  }
+
+  .card,
+  .price,
+  .service-card,
+  .contact-card {
+    padding: 1rem;
+  }
+
+  .radnici {
+    width: min(220px, 100%);
+    height: auto;
+  }
+
+  .schedule {
+    min-width: 640px;
+  }
+
+  .schedule th,
+  .schedule td {
+    padding: 0.65rem;
+    font-size: 0.9rem;
+  }
+
+  .map-wrap {
+    max-height: 230px;
+  }
+
+  footer {
+    text-align: center;
+  }
+}
+
+/* 376px – 425px */
+@media (min-width: 376px) and (max-width: 425px) {
+  body {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .container {
+    width: min(100%, 92%);
+  }
+
+  section,
+  .contact-section,
+  .services-section {
+    padding: 1.85rem 0;
+  }
+
+  header {
+    height: 74px;
+  }
+
+  header .nav,
+  .nav {
+    min-height: 74px;
+    padding: 0;
+  }
+
+  .logo {
+    left: 14px;
+    top: 10px;
+    width: 110px;
+    height: auto;
+  }
+
+  .hamburger {
+    display: flex;
+    width: 42px;
+    height: 42px;
+    margin-left: auto;
+  }
+
+  header .menu {
+    position: fixed;
+    top: 80px;
+    right: 14px;
+    left: 14px;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    padding: 0.95rem;
+    background: rgba(15, 17, 21, 0.98);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 18px 40px rgba(0,0,0,.9);
+    z-index: 60;
+  }
+
+  header .menu.open {
+    display: flex;
+  }
+
+  header .menu a,
+  .nav a {
+    top: 0;
+    width: 100%;
+    font-size: 0.96rem;
+    padding: 0.2rem 0;
+  }
+
+  header .menu .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-grid,
+  .contact-grid,
+  .form-row,
+  .cta,
+  .services-grid,
+  .trainers,
+  .pricing {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-grid {
+    gap: 1.2rem;
+  }
+
+  .hero-grid > div:first-child {
+    max-width: 100%;
+  }
+
+  .main-media {
+    justify-content: center;
+  }
+
+  .h1 {
+    font-size: 1.75rem;
+    line-height: 1.15;
+  }
+
+  .lead {
+    font-size: 0.92rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+  }
+
+  .hero-cta .btn {
+    justify-content: center;
+  }
+
+  .slider-container {
+    width: 100%;
+    height: 260px;
+  }
+
+  .slider-container .prev,
+  .slider-container .next {
+    width: 46px;
+    height: 46px;
+    font-size: 20px;
+  }
+
+  .card,
+  .price,
+  .service-card,
+  .contact-card {
+    padding: 0.95rem;
+  }
+
+  .service-card {
+    border-radius: 16px;
+  }
+
+  .services-title {
+    font-size: 1.55rem;
+  }
+
+  .service-list,
+  .field input,
+  .field textarea,
+  .field select {
+    font-size: 0.92rem;
+  }
+
+  .field input,
+  .field textarea,
+  .field select {
+    padding: 0.7rem 0.8rem;
+  }
+
+  .btn,
+  .btn-primary,
+  header .menu .btn {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.92rem;
+  }
+
+  .radnici {
+    width: min(210px, 100%);
+    height: auto;
+  }
+
+  .schedule {
+    min-width: 620px;
+  }
+
+  .schedule th,
+  .schedule td {
+    padding: 0.6rem;
+    font-size: 0.86rem;
+  }
+
+  .contact-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .map-wrap {
+    max-height: 215px;
+  }
+
+  .success-popup {
+    top: 16px;
+    left: 12px;
+    right: 12px;
+    width: auto;
+  }
+
+  .success-popup.show {
+    right: 12px;
+  }
+
+  footer {
+    text-align: center;
+  }
+}
+
+/* 321px – 375px */
+@media (min-width: 321px) and (max-width: 375px) {
+  body {
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+
+  .container {
+    width: min(100%, 93%);
+  }
+
+  section,
+  .contact-section,
+  .services-section {
+    padding: 1.7rem 0;
+  }
+
+  header {
+    height: 72px;
+  }
+
+  header .nav,
+  .nav {
+    min-height: 72px;
+    padding: 0;
+  }
+
+  .logo {
+    left: 12px;
+    top: 10px;
+    width: 104px;
+    height: auto;
+  }
+
+  .hamburger {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    margin-left: auto;
+  }
+
+  header .menu {
+    position: fixed;
+    top: 78px;
+    right: 12px;
+    left: 12px;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.45rem;
+    padding: 0.9rem;
+    background: rgba(15, 17, 21, 0.98);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 18px 36px rgba(0,0,0,.9);
+    z-index: 60;
+  }
+
+  header .menu.open {
+    display: flex;
+  }
+
+  header .menu a,
+  .nav a {
+    top: 0;
+    width: 100%;
+    font-size: 0.94rem;
+    padding: 0.18rem 0;
+  }
+
+  header .menu .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-grid,
+  .contact-grid,
+  .form-row,
+  .cta,
+  .services-grid,
+  .trainers,
+  .pricing {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-grid {
+    gap: 1.05rem;
+  }
+
+  .hero-grid > div:first-child {
+    max-width: 100%;
+  }
+
+  .main-media {
+    justify-content: center;
+  }
+
+  .eyebrow {
+    font-size: 0.76rem;
+  }
+
+  .h1 {
+    font-size: 1.58rem;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+  }
+
+  .lead {
+    font-size: 0.9rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.55rem;
+  }
+
+  .hero-cta .btn {
+    justify-content: center;
+  }
+
+  .slider-container {
+    width: 100%;
+    height: 235px;
+  }
+
+  .slider-container .prev,
+  .slider-container .next {
+    width: 44px;
+    height: 44px;
+    font-size: 19px;
+  }
+
+  .card,
+  .price,
+  .service-card,
+  .contact-card {
+    padding: 0.9rem;
+  }
+
+  .services-title {
+    font-size: 1.45rem;
+  }
+
+  .services-subtitle,
+  .service-intro,
+  .service-list,
+  .contact-sub,
+  .muted {
+    font-size: 0.9rem;
+  }
+
+  .service-list li {
+    padding-left: 1rem;
+  }
+
+  .field input,
+  .field textarea,
+  .field select {
+    font-size: 0.9rem;
+    padding: 0.68rem 0.78rem;
+  }
+
+  .btn,
+  .btn-primary,
+  header .menu .btn {
+    padding: 0.58rem 0.85rem;
+    font-size: 0.9rem;
+  }
+
+  .radnici {
+    width: min(190px, 100%);
+    height: auto;
+  }
+
+  .schedule {
+    min-width: 600px;
+  }
+
+  .schedule th,
+  .schedule td {
+    padding: 0.55rem;
+    font-size: 0.84rem;
+  }
+
+  .contact-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .map-wrap {
+    max-height: 205px;
+  }
+
+  .success-popup {
+    top: 14px;
+    left: 10px;
+    right: 10px;
+    padding: 12px 14px;
+    font-size: 0.92rem;
+  }
+
+  .success-popup.show {
+    right: 10px;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 0.88rem;
+  }
+}
+
+/* do 320px */
+@media (max-width: 320px) {
+  body {
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .container {
+    width: min(100%, 94%);
+  }
+
+  section,
+  .contact-section,
+  .services-section {
+    padding: 1.55rem 0;
+  }
+
+  header {
+    height: 68px;
+  }
+
+  header .nav,
+  .nav {
+    min-height: 68px;
+    padding: 0;
+  }
+
+  .logo {
+    left: 10px;
+    top: 10px;
+    width: 94px;
+    height: auto;
+  }
+
+  .hamburger {
+    display: flex;
+    width: 38px;
+    height: 38px;
+    margin-left: auto;
+    font-size: 1.25rem;
+  }
+
+  header .menu {
+    position: fixed;
+    top: 74px;
+    right: 10px;
+    left: 10px;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.4rem;
+    padding: 0.82rem;
+    background: rgba(15, 17, 21, 0.98);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 16px 32px rgba(0,0,0,.9);
+    z-index: 60;
+  }
+
+  header .menu.open {
+    display: flex;
+  }
+
+  header .menu a,
+  .nav a {
+    top: 0;
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 0.16rem 0;
+  }
+
+  header .menu .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-grid,
+  .contact-grid,
+  .form-row,
+  .cta,
+  .services-grid,
+  .trainers,
+  .pricing {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-grid {
+    gap: 0.95rem;
+  }
+
+  .hero-grid > div:first-child {
+    max-width: 100%;
+  }
+
+  .main-media {
+    justify-content: center;
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+  }
+
+  .h1 {
+    font-size: 1.42rem;
+    line-height: 1.14;
+    margin: 0.35rem 0 0.7rem;
+  }
+
+  .lead {
+    font-size: 0.88rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .hero-cta .btn {
+    justify-content: center;
+  }
+
+  .slider-container {
+    width: 100%;
+    height: 210px;
+    border-radius: 14px;
+  }
+
+  .slider-container .prev,
+  .slider-container .next {
+    width: 40px;
+    height: 40px;
+    font-size: 17px;
+  }
+
+  .card,
+  .price,
+  .service-card,
+  .contact-card {
+    padding: 0.82rem;
+    border-radius: 14px;
+  }
+
+  .services-title {
+    font-size: 1.32rem;
+  }
+
+  .services-subtitle,
+  .service-intro,
+  .service-list,
+  .contact-sub,
+  .muted,
+  #pricing .plan-tagline {
+    font-size: 0.88rem;
+  }
+
+  .service-chip,
+  .service-tag {
+    font-size: 0.72rem;
+  }
+
+  .service-icon {
+    font-size: 1.2rem;
+    right: 0.9rem;
+  }
+
+  .field input,
+  .field textarea,
+  .field select {
+    font-size: 0.88rem;
+    padding: 0.64rem 0.74rem;
+  }
+
+  .btn,
+  .btn-primary,
+  header .menu .btn {
+    padding: 0.55rem 0.78rem;
+    font-size: 0.88rem;
+  }
+
+  .radnici {
+    width: min(170px, 100%);
+    height: auto;
+  }
+
+  .schedule {
+    min-width: 560px;
+  }
+
+  .schedule th,
+  .schedule td {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .contact-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .map-wrap {
+    max-height: 190px;
+    border-radius: 12px;
+  }
+
+  .success-popup {
+    top: 12px;
+    left: 8px;
+    right: 8px;
+    padding: 10px 12px;
+    font-size: 0.88rem;
+    gap: 8px;
+  }
+
+  .success-popup.show {
+    right: 8px;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 0.84rem;
+  }
+}
+
+/* CENTRIRANJE SLIKA NA MOBILE */
+
+@media (max-width: 1350px) {
+
+  .avatar {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .radnici {
+    width: 100%;
+    max-width: 260px; /* da ne budu prevelike */
+    height: auto;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .card {
+    text-align: center;
+  }
+
+}
+
+/* HERO SEKCIJA - centriranje teksta i dugmica iznad slidera na mobile */
+
+@media (max-width: 1023px) {
+	.hero-grid .h1{
+			position:relative;
+			right:-115px;
+	}
+		.hero-grid .eyebrow{
+			position:relative;
+			right:-115px;
+	}
+		.hero-grid .hero-cta{
+			position:relative;
+			right:-300px;
+	}
+		.hero-grid .lead{
+			position:relative;
+			right:-115px;
+	}
+}
+@media (max-width: 767px) {
+	.hero-grid .hero-cta{
+			position:relative;
+			left: 0px;
+	}
+	
+}
+
+.section-lead {
+  color: var(--muted);
+}
+
+/* =====================================
+   GLOBALNO CENTRIRANJE LAYOUT-A I ELEMENATA
+   ===================================== */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.container {
+  width: min(1180px, calc(100% - 32px));
+  margin-inline: auto;
+}
+
+header .nav,
+.nav {
+  min-height: inherit;
+  align-items: center;
+}
+
+.nav a,
+header .menu a {
+  top: 0 !important;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.logo {
+  position: static;
+  left: auto;
+  top: auto;
+  display: block;
+  width: 160px;
+  height: auto;
+  max-width: 100%;
+}
+
+.hero-grid {
+  width: 100%;
+  align-items: center;
+}
+
+.hero-grid > div:first-child {
+  width: 100%;
+  max-width: 560px;
+  justify-self: center;
+}
+
+.main-media {
+  width: 100%;
+  justify-content: center !important;
+}
+
+.slider-container {
+  margin-inline: auto !important;
+}
+
+.services-header,
+#trainers .container > h2,
+#trainers .container > .section-lead,
+#schedule .container > h2,
+#pricing .container > h2,
+.contact-head {
+  text-align: center;
+  margin-inline: auto;
+}
+
+.contact-head {
+  justify-content: center;
+}
+
+.services-grid,
+.trainers,
+.pricing {
+  align-items: stretch;
+}
+
+.trainers .card,
+.pricing .price,
+.services-grid .service-card {
+  width: 100%;
+  margin-inline: auto;
+}
+
+#trainers .card {
+  text-align: center;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.radnici {
+  display: block;
+  margin-inline: auto;
+}
+
+#schedule .card,
+.contact-card,
+.price,
+.service-card,
+.card {
+  max-width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    justify-items: center;
+  }
+
+  .hero-grid > div:first-child {
+    justify-self: center;
+  }
+}
+
+@media (max-width: 1023px) {
+  .hero-grid .h1,
+  .hero-grid .eyebrow,
+  .hero-grid .hero-cta,
+  .hero-grid .lead {
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .hero-grid {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .hero-grid > div:first-child {
+    max-width: 680px;
+  }
+
+  .hero-cta {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-cta .btn {
+    width: min(100%, 320px);
+  }
+
+  .lead {
+    margin-inline: auto;
+  }
+
+  .contact-head {
+    align-items: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    width: min(100% - 24px, 100%);
+    width: calc(100% - 24px);
+  }
+
+  header .nav,
+  .nav {
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .logo {
+    width: 112px;
+  }
+
+  .services-header,
+  #trainers .container > h2,
+  #trainers .container > .section-lead,
+  #schedule .container > h2,
+  #pricing .container > h2,
+  .contact-head,
+  .services-subtitle,
+  .contact-sub,
+  .muted {
+    text-align: center;
+  }
+
+  .contact-head {
+    align-items: center !important;
+  }
+
+  .trainers .card,
+  .pricing .price,
+  .services-grid .service-card,
+  .contact-card,
+  #schedule .card {
+    justify-self: center;
+  }
+}
+
+
+/* =====================================
+   MODERNI HERO IMAGE SLIDER
+   ===================================== */
+.modern-slider {
+  width: min(640px, 100%);
+}
+
+.modern-slider__viewport {
+  position: relative;
+  height: clamp(360px, 45vw, 440px);
+  overflow: hidden;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.96), rgba(15, 23, 42, 0.9));
+  box-shadow:
+    0 22px 65px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(125, 211, 252, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.modern-slider__track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.modern-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.06);
+  transition: opacity .65s ease, transform .9s ease, visibility .65s ease;
+}
+
+.modern-slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.05), rgba(2, 6, 23, 0.4));
+}
+
+.modern-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.modern-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.modern-slider__overlay {
+  position: absolute;
+  inset: auto 18px 18px 18px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  z-index: 3;
+}
+
+.modern-slider__badge,
+.modern-slider__meta,
+.modern-slider__arrow {
+  backdrop-filter: blur(12px);
+}
+
+.modern-slider__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: .55rem .9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(15, 23, 42, .52);
+  color: #f8fafc;
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.modern-slider__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: .7rem .85rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(15, 23, 42, .42);
+}
+
+.modern-slider__counter {
+  color: #f8fafc;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.modern-slider__hint {
+  color: rgba(226, 232, 240, .84);
+  font-size: .78rem;
+}
+
+.modern-slider__arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 4;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 999px;
+  background: rgba(15, 23, 42, .48);
+  color: #f8fafc;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.modern-slider__arrow:hover {
+  transform: translateY(-50%) scale(1.05);
+  background: rgba(15, 23, 42, .72);
+  box-shadow: 0 10px 26px rgba(34, 211, 238, .18);
+}
+
+.modern-slider__arrow--prev { left: 16px; }
+.modern-slider__arrow--next { right: 16px; }
+
+.modern-slider__progress {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 0;
+  height: 4px;
+  z-index: 4;
+  background: rgba(255,255,255,.08);
+  overflow: hidden;
+}
+
+.modern-slider__progress-bar {
+  display: block;
+  width: 16.666%;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #22d3ee, #7dd3fc);
+  transition: width .35s ease;
+}
+
+.modern-slider__dots {
+  display: flex;
+  justify-content: center;
+  gap: .55rem;
+  margin-top: 1rem;
+}
+
+.modern-slider__dot {
+  width: 10px;
+  height: 10px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, .45);
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.modern-slider__dot.is-active {
+  transform: scale(1.2);
+  background: #22d3ee;
+  box-shadow: 0 0 0 4px rgba(34, 211, 238, .18);
+}
+
+@media (max-width: 767px) {
+  .modern-slider { width: 100%; }
+  .modern-slider__viewport {
+    height: 300px;
+    border-radius: 20px;
+  }
+  .modern-slider__arrow {
+    width: 46px;
+    height: 46px;
+  }
+  .modern-slider__overlay {
+    inset: auto 12px 12px 12px;
+    gap: .65rem;
+  }
+  .modern-slider__badge {
+    padding: .48rem .75rem;
+    font-size: .72rem;
+  }
+  .modern-slider__meta {
+    padding: .55rem .7rem;
+  }
+  .modern-slider__hint {
+    font-size: .7rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .modern-slider__overlay {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .modern-slider__meta {
+    align-items: flex-start;
+  }
+}
+
+/* =====================================
+   FIX: ŠIRI I CENTRIRANI HERO SLIDER
+   ===================================== */
+.main-media {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100%;
+  min-width: 0;
+}
+
+.modern-slider {
+  display: block;
+  width: 100% !important;
+  max-width: 720px;
+  margin-inline: auto;
+  min-width: 0;
+}
+
+.modern-slider__viewport {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  min-height: 320px;
+  max-height: 460px;
+}
+
+@media (min-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .hero-grid > div:first-child,
+  .hero-grid > div:last-child {
+    width: 100%;
+  }
+
+  .hero-grid > div:first-child {
+    max-width: 560px;
+  }
+
+  .hero-grid > div:last-child {
+    max-width: 720px;
+    justify-self: center;
+  }
+}
+
+@media (max-width: 1023px) {
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.4rem;
+  }
+
+  .hero-grid > div:first-child,
+  .hero-grid > div:last-child {
+    width: 100%;
+    max-width: 100%;
+    justify-self: center;
+  }
+
+  .modern-slider {
+    max-width: 760px;
+  }
+
+  .modern-slider__viewport {
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+    max-height: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .modern-slider {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .modern-slider__viewport {
+    aspect-ratio: 16 / 10;
+    height: auto;
+    min-height: 0;
+    border-radius: 22px;
+  }
+
+  .modern-slider__arrow--prev {
+    left: 12px;
+  }
+
+  .modern-slider__arrow--next {
+    right: 12px;
+  }
+}
+
+@media (max-width: 425px) {
+  .modern-slider__viewport {
+    aspect-ratio: 4 / 5;
+    border-radius: 20px;
+  }
+
+  .modern-slider__arrow {
+    width: 44px;
+    height: 44px;
+  }
+
+  .modern-slider__dots {
+    margin-top: .85rem;
+  }
 }
