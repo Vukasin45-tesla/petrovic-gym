@@ -3023,3 +3023,16 @@ header .menu a {
     width: 100%;
   }
 }
+
+/* Logo stabilizacija na svim rezolucijama */
+header .brand .logo {
+  position: relative !important;
+  left: 0 !important;
+  top: 0 !important;
+  transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  width: clamp(96px, 18vw, 160px);
+  height: auto;
+}
