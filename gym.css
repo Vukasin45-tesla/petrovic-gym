@@ -2975,6 +2975,7 @@ header .menu a {
   width: 160px;
   height: 95px;
   z-index: 120;
+  pointer-events: none;
 }
 
 @media (max-width: 767px) {
